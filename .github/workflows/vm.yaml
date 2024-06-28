@@ -1,0 +1,25 @@
+name: VM
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install nix
+        uses: DeterminateSystems/nix-installer-action@v9
+
+      - name: Setup magic-nix-cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build and run the test VM
+        run: |
+          nix run .#vm-24-05 -- -daemonize -display none
+
+      - name: Test
+        run: |
+          nix run .#vm-ssh -- cat /etc/os-release
+          
