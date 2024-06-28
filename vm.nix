@@ -19,7 +19,7 @@
     sharedDirectories = {
       workspace = {
         source = "$GITHUB_WORKSPACE";
-        target = "/mnt";
+        target = "/src";
       };
     };
     cores = 2;
@@ -68,6 +68,10 @@
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /src - - - - -"
+  ];
 
   environment.systemPackages = [
     pkgs.git

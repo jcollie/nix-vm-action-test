@@ -31,24 +31,24 @@
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
       };
-      ghostty-source = pkgs-unstable.stdenvNoCC.mkDerivation {
-        name = "ghostty-source";
-        src = ./.;
-        dontPatch = true;
-        dontConfgure = true;
-        dontBuild = true;
-        doTest = false;
-        installPhase = ''
-          cp -rv $src $out
-        '';
-      };
+      # ghostty-source = pkgs-unstable.stdenvNoCC.mkDerivation {
+      #   name = "ghostty-source";
+      #   src = ./.;
+      #   dontPatch = true;
+      #   dontConfgure = true;
+      #   dontBuild = true;
+      #   doTest = false;
+      #   installPhase = ''
+      #     cp -rv $src $out
+      #   '';
+      # };
       ghostty-sshkeys = pkgs-unstable.runCommand "ghostty-sshkeys" {} ''
         mkdir -p $out
         ${pkgs-unstable.openssh}/bin/ssh-keygen -C "" -N "" -t ed25519 -f $out/id_ed25519
       '';
     in {
       overlay = final: prev: {
-        inherit ghostty-source ghostty-sshkeys;
+        inherit ghostty-sshkeys;
         zig = zig.packages.${prev.system}."0.13.0";
       };
       packages.${system} =
