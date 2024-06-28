@@ -1,0 +1,6 @@
+/nixos.qcow2
+/result*
+/.zig-cache
+/zig-cache
+/zig-out
+
