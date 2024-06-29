@@ -54,10 +54,12 @@
       packages.${system} =
         {
           vm-ssh = pkgs-unstable.writeShellScriptBin "ssh" ''
-            while ! ${pkgs-unstable.libressl.nc}/bin/nc -z 127.0.0.1 2222
+            while ! ${pkgs-unstable.libressl.nc}/bin/nc -n -z 127.0.0.1 2222 2>/dev/null
             do
-              sleep 0.1
+              echo -n "."; sleep 0.1
             done
+
+            echo ""
 
             ${pkgs-unstable.openssh}/bin/ssh -F none -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=ERROR -i ${ghostty-sshkeys}/id_ed25519 ssh://root@127.0.0.1:2222  "$@"
           '';
