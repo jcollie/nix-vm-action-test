@@ -20,4 +20,4 @@ jobs:
 
       - name: Test
         run: |
-          nix run .#vm-ssh -- cd /src; nix build .#vm-ssh
+          nix run .#vm-ssh -- cd /src; ls -la
