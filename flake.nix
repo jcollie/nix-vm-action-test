@@ -54,6 +54,8 @@
       packages.${system} =
         {
           vm-ssh = pkgs-unstable.writeScriptBin "ssh" ''
+            ls -l ${pkgs-unstable.openssh}/bin/ssh
+            file ${pkgs-unstable.openssh}/bin/ssh
             ${pkgs-unstable.openssh}/bin/ssh -F none -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=ERROR -i ${ghostty-sshkeys}/id_ed25519 ssh://root@localhost:2222  "$@"
           '';
         }
